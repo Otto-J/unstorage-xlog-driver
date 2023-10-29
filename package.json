@@ -1,8 +1,8 @@
 {
-  "name": "packageName",
-  "version": "0.0.0",
+  "name": "unstorage-xlog-driver",
+  "version": "0.0.1",
   "description": "",
-  "repository": "unjs/packageName",
+  "repository": "Otto-J/unstorage-xlog-deriver",
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
@@ -42,5 +42,10 @@
     "unbuild": "^2.0.0",
     "vitest": "^0.34.6"
   },
-  "packageManager": "pnpm@8.10.0"
+  "packageManager": "pnpm@8.10.0",
+  "dependencies": {
+    "crossbell": "^1.9.0",
+    "gray-matter": "^4.0.3",
+    "unstorage": "^1.9.0"
+  }
 }
