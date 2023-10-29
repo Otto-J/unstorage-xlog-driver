@@ -1,7 +1,7 @@
 {
   "name": "unstorage-xlog-driver",
   "version": "0.0.1",
-  "description": "",
+  "description": "unjs/unstorage driver for xlog.app",
   "repository": "Otto-J/unstorage-xlog-deriver",
   "license": "MIT",
   "sideEffects": false,
