@@ -1,10 +1,5 @@
 # unstorage-xlog-driver
 
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![bundle][bundle-src]][bundle-href]
-[![Codecov][codecov-src]][codecov-href]
-
 This is my package description.
 
 ## Usage
@@ -13,16 +8,16 @@ Install package:
 
 ```sh
 # npm
-npm install packageName
+npm install unstorage unstorage-xlog-driver
 
 # yarn
-yarn add packageName
+yarn add unstorage unstorage-xlog-driver
 
 # pnpm
-pnpm install packageName
+pnpm install unstorage unstorage-xlog-driver
 
 # bun
-bun install packageName
+bun install unstorage unstorage-xlog-driver
 ```
 
 Import:
@@ -30,7 +25,7 @@ Import:
 ```js
 import { createStorage } from "unstorage";
 
-import { xLogStorageDriver } from "../src/index";
+import { xLogStorageDriver } from "unstorage-xlog-driver";
 
 const OTTO_ID = 53_709;
 
