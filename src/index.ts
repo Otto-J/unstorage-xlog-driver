@@ -75,15 +75,13 @@ async function fetchFiles(options: XLogStorageDriverOptions) {
         ...contentWithData.data,
       };
 
-
       const content = matter.stringify(
         contentWithData.content.replaceAll(
           /ipfs:\/\/([^\n ]+)/g,
           (options.ipfsGateway ?? IPFS_GATEWAY) + "$1",
-        ), 
-        meta
-      )
-
+        ),
+        meta,
+      );
 
       cache.set(key, {
         content,
