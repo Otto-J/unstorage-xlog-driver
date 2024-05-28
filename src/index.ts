@@ -61,7 +61,7 @@ async function fetchFiles(options: XLogStorageDriverOptions) {
           : "";
       const body = i.metadata?.content?.content ?? "";
 
-      const { data, content } = matter(body);
+      const contentWithData = matter(body);
 
       const meta: xLogFileMeta = {
         uri: i.uri ?? "",
@@ -72,13 +72,21 @@ async function fetchFiles(options: XLogStorageDriverOptions) {
         tags: i.metadata?.content?.tags ?? [],
         slug,
         summary,
-        ...data,
+        ...contentWithData.data,
       };
-      cache.set(key, {
-        content: content.replaceAll(
+
+
+      const content = matter.stringify(
+        contentWithData.content.replaceAll(
           /ipfs:\/\/([^\n ]+)/g,
           (options.ipfsGateway ?? IPFS_GATEWAY) + "$1",
-        ),
+        ), 
+        meta
+      )
+
+
+      cache.set(key, {
+        content,
         meta,
       });
     }
