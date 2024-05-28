@@ -34,7 +34,7 @@ const LIMIT = 100;
 const TAGS = "post";
 
 async function fetchFiles(options: XLogStorageDriverOptions) {
-  const cache = new Map<string, xLogFile>();
+  const files = new Map<string, xLogFile>();
 
   try {
     const characterId = Number(options.characterId);
@@ -83,12 +83,12 @@ async function fetchFiles(options: XLogStorageDriverOptions) {
         meta,
       );
 
-      cache.set(key, {
+      files.set(key, {
         content,
         meta,
       });
     }
-    return cache;
+    return files;
   } catch {
     throw new Error(DRIVER_NAME + " Error: Failed");
   }
@@ -104,7 +104,7 @@ export const xLogStorageDriver = defineDriver(
       ...opt,
     };
 
-    let data: Map<string, xLogFile>;
+    let files: Map<string, xLogFile>;
     let lastCheck = 0;
     let syncPromise: undefined | Promise<any>;
 
@@ -122,7 +122,7 @@ export const xLogStorageDriver = defineDriver(
         syncPromise = fetchFiles(options);
       }
 
-      data = await syncPromise;
+      files = await syncPromise;
       lastCheck = Date.now();
       syncPromise = undefined;
     };
@@ -132,28 +132,28 @@ export const xLogStorageDriver = defineDriver(
       options,
       async hasItem(key) {
         await syncFiles();
-        return data.has(key);
+        return files.has(key);
       },
       async getItem(key: string) {
         await syncFiles();
 
-        return data.get(key)?.content;
+        return files.get(key)?.content;
       },
       // async setItem(key, value, _opts) {},
       // async removeItem(key, _opts) {},
       async getKeys() {
         await syncFiles();
-        return [...data.keys()];
+        return [...files.keys()];
       },
       async getMeta(key) {
         await syncFiles();
-        return data.get(key)?.meta as StorageMeta;
+        return files.get(key)?.meta as StorageMeta;
       },
       clear() {
-        data.clear();
+        files.clear();
       },
       dispose() {
-        data.clear();
+        files.clear();
       },
     };
   },
