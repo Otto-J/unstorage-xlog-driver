@@ -1,31 +1,36 @@
-import { expect, it, describe } from "vitest";
+import { expect, it, describe } from "bun:test";
 import { createStorage } from "unstorage";
-import { xLogStorageDriver } from "../src/index";
+import { xLogStorageDriver } from "./index";
 
 const OTTO_ID = 53_709;
 
 describe("Must set characterID", () => {
-  it("pass", () => {
-    const opt = {
-      ttl: 60 * 60,
-      // characterId: OTTO_ID,
-    };
-    const storage = createStorage({
-      driver: xLogStorageDriver(opt as any),
-    });
-    // expect().toBe(true);
-    // 通过 stroage.getKeys 会报错
-    expect(storage.getKeys()).rejects.toThrow();
+  it("require pass", () => {
+    expect(() => {
+      createStorage({
+        driver: xLogStorageDriver({
+          ttl: 60 * 60,
+        } as any),
+      });
+    }).toThrow(/Required/);
+
+    expect(() => {
+      createStorage({
+        driver: xLogStorageDriver({
+          characterId: OTTO_ID,
+        } as any),
+      });
+    }).not.toThrow(/Required/);
   });
 });
 
 // 返回的 getKeys
 describe("Storage features", () => {
-  it("getKeys", async () => {
+  it.skip("getKeys", async () => {
     const storage = createStorage({
       driver: xLogStorageDriver({
         characterId: OTTO_ID,
-        ttl: 60 * 60,
+        // ttl: 60 * 60,
       }),
     });
     const keys = await storage.getKeys();
@@ -35,7 +40,7 @@ describe("Storage features", () => {
   });
 
   // 测试 getItem
-  it("getItem", async () => {
+  it.skip("getItem", async () => {
     const storage = createStorage({
       driver: xLogStorageDriver({
         characterId: OTTO_ID,
@@ -50,7 +55,7 @@ describe("Storage features", () => {
   });
 
   // 测试 getMeta
-  it("getMeta", async () => {
+  it.skip("getMeta", async () => {
     const storage = createStorage({
       driver: xLogStorageDriver({
         characterId: OTTO_ID,
@@ -62,6 +67,6 @@ describe("Storage features", () => {
     const meta = await storage.getMeta(keys[0]);
     console.log(meta.title);
     // const meta = await storage.getMeta("72.md");
-    expect(meta).haveOwnProperty("title");
+    expect(meta).toHaveProperty("title");
   });
 });

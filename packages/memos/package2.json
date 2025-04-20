@@ -1,0 +1,29 @@
+{
+  "name": "@web.worker/unstorage-memos",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "version": "0.0.2",
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "scripts": {
+    "preinstall": "npx only-allow bun",
+    "build": "bun build ./index.ts --outdir=dist --outfile=index.js -e unstorage --minify",
+    "update:version": "npm version patch",
+    "publish": " npm publish --access public --tag latest"
+  },
+  "devDependencies": {
+    "@types/bun": "workspace:*"
+  },
+  "peerDependencies": {
+    "typescript": "workspace:*"
+  },
+  "dependencies": {
+    "ofetch": "workspace:*",
+    "unstorage": "workspace:*",
+    "zod": "workspace:*"
+  }
+}

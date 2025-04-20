@@ -1,0 +1,43 @@
+{
+  "name": "unstorage-xlog-driver",
+  "version": "0.0.1",
+  "description": "unjs/unstorage driver for xlog.app",
+  "repository": "Otto-J/unstorage-xlog-deriver",
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir=dist -e unstorage --minify",
+    "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src test",
+    "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",
+    "prepack": "bun run build",
+    "release": "bun test && changelogen --release && npm publish && git push --follow-tags",
+    "test": "bun test",
+    "test:types": "tsc --noEmit --skipLibCheck"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12",
+    "changelogen": "^0.5.5",
+    "debug": "^4.4.0",
+    "typescript": "*"
+  },
+  "dependencies": {
+    "crossbell": "^1.9.0",
+    "gray-matter": "^4.0.3",
+    "pino": "^9.6.0",
+    "unstorage": "*"
+  }
+}

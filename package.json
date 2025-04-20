@@ -1,50 +1,23 @@
 {
-  "name": "unstorage-xlog-driver",
-  "version": "0.0.1",
-  "description": "unjs/unstorage driver for xlog.app",
-  "repository": "Otto-J/unstorage-xlog-deriver",
-  "license": "MIT",
-  "sideEffects": false,
+  "name": "@web.worker/unstorage-drivers",
+  "module": "index.ts",
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    }
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
   "scripts": {
-    "build": "unbuild",
-    "dev": "vitest dev",
-    "play": "pnpm -C playground dev",
-    "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src test",
-    "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",
-    "prepack": "pnpm run build",
-    "release": "pnpm test && changelogen --release && npm publish && git push --follow-tags",
-    "test": "pnpm lint && pnpm test:types && vitest run --coverage",
-    "test:types": "tsc --noEmit --skipLibCheck"
+    "preinstall": "npx only-allow bun",
+    "build": "bun build ./packages/memos/index.ts --outdir=dist --outfile=index.js -e unstorage --minify"
   },
   "devDependencies": {
-    "@types/node": "^20.8.9",
-    "@vitest/coverage-v8": "^0.34.6",
-    "changelogen": "^0.5.5",
+    "@types/bun": "latest",
+    "prettier": "^3.5.3",
+    "typescript": "^5.0.0",
     "eslint": "^8.52.0",
-    "eslint-config-unjs": "^0.2.1",
-    "prettier": "^3.0.3",
-    "typescript": "^5.2.2",
-    "unbuild": "^2.0.0",
-    "vitest": "^0.34.6"
+    "eslint-config-unjs": "^0.2.1"
   },
-  "packageManager": "pnpm@8.10.0",
   "dependencies": {
-    "crossbell": "^1.9.0",
-    "gray-matter": "^4.0.3",
-    "unstorage": "^1.9.0"
+    "unstorage": "^1.15.0"
   }
 }
