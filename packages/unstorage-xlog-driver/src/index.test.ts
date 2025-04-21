@@ -1,6 +1,10 @@
-import { expect, it, describe } from "bun:test";
+import { expect, it, describe, mock, spyOn } from "bun:test";
 import { createStorage } from "unstorage";
+import caches from "./core/cache";
 import { xLogStorageDriver } from "./index";
+
+const getFn = spyOn(caches, "get");
+const setFn = spyOn(caches, "set");
 
 const OTTO_ID = 53_709;
 
@@ -13,40 +17,40 @@ describe("Must set characterID", () => {
         } as any),
       });
     }).toThrow(/Required/);
-
+  });
+  it("require pass", () => {
     expect(() => {
       createStorage({
         driver: xLogStorageDriver({
           characterId: OTTO_ID,
-        } as any),
+        }),
       });
     }).not.toThrow(/Required/);
   });
 });
 
 // 返回的 getKeys
-describe("Storage features", () => {
-  it.skip("getKeys", async () => {
-    const storage = createStorage({
-      driver: xLogStorageDriver({
-        characterId: OTTO_ID,
-        // ttl: 60 * 60,
-      }),
-    });
+describe.only("Storage features", () => {
+  const storage = createStorage({
+    driver: xLogStorageDriver({
+      characterId: OTTO_ID,
+      ttl: 60 * 60,
+    }),
+  });
+  it("getKeys use cache", async () => {
     const keys = await storage.getKeys();
     expect(keys).toBeInstanceOf(Array);
     // 返回的是 string[]
     expect(keys[0]).toBeTypeOf("string");
+    expect(getFn).toBeCalledTimes(1);
+    expect(setFn).toBeCalledTimes(1);
+
+    await storage.getKeys();
+    expect(getFn).toBeCalledTimes(2);
   });
 
   // 测试 getItem
-  it.skip("getItem", async () => {
-    const storage = createStorage({
-      driver: xLogStorageDriver({
-        characterId: OTTO_ID,
-        ttl: 60 * 60,
-      }),
-    });
+  it("getItem", async () => {
     const keys = await storage.getKeys();
 
     const item = await storage.getItem(keys[0]);
@@ -55,7 +59,7 @@ describe("Storage features", () => {
   });
 
   // 测试 getMeta
-  it.skip("getMeta", async () => {
+  it("getMeta", async () => {
     const storage = createStorage({
       driver: xLogStorageDriver({
         characterId: OTTO_ID,

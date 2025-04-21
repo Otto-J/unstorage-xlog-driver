@@ -8,7 +8,8 @@ import type {
 
 const LIMIT = 100;
 const TAGS = "post";
-const IPFS_GATEWAY = "https://ipfs.4everland.xyz/ipfs/";
+
+export const IPFS_GATEWAY = "https://ipfs.4everland.xyz/ipfs/";
 
 const indexer = createIndexer();
 

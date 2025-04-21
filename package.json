@@ -18,6 +18,7 @@
     "eslint-config-unjs": "^0.2.1"
   },
   "dependencies": {
+    "pino-pretty": "^13.0.0",
     "unstorage": "^1.15.0"
   }
 }

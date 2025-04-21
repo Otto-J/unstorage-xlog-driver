@@ -16,7 +16,13 @@ const logStream = fs.createWriteStream(logFilePath, { flags: "a" });
 const logger = pino(
   {
     name: "xlog-driver",
-    level: process.env.LOG_LEVEL || "debug",
+    level: process.env.LOG_LEVEL || "info",
+    transport: {
+      target: "pino-pretty",
+      options: {
+        colorize: true,
+      },
+    },
   },
   logStream,
 );
@@ -27,20 +33,20 @@ let files: Map<string, xLogFile>;
 
 export const xLogStorageDriver = defineDriver(
   (opt: XLogStorageDriverOptions) => {
-    logger.debug({ opt }, "user options");
+    logger.debug({ opt }, "user raw options");
     const _options = XLogStorageDriverOptionsSchema.safeParse(opt);
-    logger.debug({ _options }, "user options safeParse result");
+    logger.debug({ _options }, "user safeParse result");
     if (!_options.success) {
       logger.error({ error: _options.error }, "user options parse error");
       throw new Error(_options.error.message);
     }
     const options = _options.data as Required<XLogStorageDriverOptions>;
-    logger.debug({ options }, "user parsed options");
+    logger.debug({ options }, "user format options");
 
     const syncFiles = async () => {
-      logger.debug("syncFiles");
+      logger.debug("syncFiles start");
       const expired = caches.get(options.characterId.toString());
-      logger.debug({ expired }, "syncFiles expired");
+      logger.debug({ expired }, "caches get result");
       const now = Date.now();
 
       // 如果缓存不存在或已过期，则重新请求
@@ -58,6 +64,8 @@ export const xLogStorageDriver = defineDriver(
         );
         caches.set(options.characterId.toString(), now + options.ttl * 1000);
         logger.debug("syncFiles done");
+      } else {
+        logger.debug("no expired, will not fetchFiles");
       }
     };
 
@@ -78,7 +86,7 @@ export const xLogStorageDriver = defineDriver(
       // async setItem(key, value, _opts) {},
       // async removeItem(key, _opts) {},
       async getKeys() {
-        logger.debug("getKeys");
+        logger.debug("start getKeys function");
         await syncFiles();
         return [...files.keys()];
       },
