@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.json",
+
+  "compilerOptions": {
+    // --- 👇 这些是生成 .d.ts 文件的关键选项 👇 ---
+    "declaration": true,          /* Generates corresponding '.d.ts' file. */
+    "emitDeclarationOnly": true,  /* Only emit '.d.ts' files and not JavaScript files. */
+    "outDir": "./dist",           /* Specify the output directory for generated declaration files. */
+    "rootDir": "./src"            /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    // --- 👆 这些是生成 .d.ts 文件的关键选项 👆 ---
+  },
+  "include": ["src/**/*.ts"],     /* Specify files to include in compilation */
+  "exclude": ["node_modules", "dist"] /* Specify files to exclude */
+
+}

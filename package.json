@@ -8,16 +8,21 @@
   ],
   "scripts": {
     "preinstall": "npx only-allow bun",
+    "build:xlog": "cd packages/unstorage-xlog-driver && bun run build",
     "build": "bun build ./packages/memos/index.ts --outdir=dist --outfile=index.js -e unstorage --minify"
   },
   "devDependencies": {
-    "@types/bun": "latest",
-    "prettier": "^3.5.3",
-    "typescript": "^5.0.0",
+    "@types/bun": "^1.2.10",
+    "@types/debug": "^4.1.12",
+    "bun-plugin-dts": "^0.3.0",
     "eslint": "^8.52.0",
-    "eslint-config-unjs": "^0.2.1"
+    "eslint-config-unjs": "^0.2.1",
+    "prettier": "^3.5.3",
+    "typescript": "^5"
   },
   "dependencies": {
+    "debug": "^4.4.0",
+    "pino": "^9.6.0",
     "pino-pretty": "^13.0.0",
     "unstorage": "^1.15.0"
   }

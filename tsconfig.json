@@ -4,7 +4,10 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
+    "skipLibCheck": true,          /* Skip type checking of declaration files. */
+
   },
   "include": ["packages/unstorage-xlog-driver/src"]
 }

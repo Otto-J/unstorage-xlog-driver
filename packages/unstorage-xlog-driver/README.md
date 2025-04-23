@@ -8,14 +8,14 @@ Install package:
 
 ```sh
 # npm
-npm install unstorage unstorage-xlog-driver
+npm install unstorage @web.worker/unstorage-xlog-driver
 ```
 
 Import:
 
 ```js
 import { createStorage } from "unstorage";
-import { xLogStorageDriver } from "unstorage-xlog-driver";
+import { xLogStorageDriver } from "@web.worker/unstorage-xlog-driver";
 
 const OTTO_ID = 53_709;
 
@@ -27,6 +27,7 @@ async function main() {
     }),
   });
 
+  // 获取所有的 key
   // const keys = await storage.getKeys();
   // console.log(keys);
 
@@ -37,6 +38,13 @@ async function main() {
 
 main();
 ```
+
+## 目前实现了
+
+- getKeys
+- hasItem
+- getItem
+- getMeta
 
 ## Development
 

@@ -7,9 +7,9 @@ import caches from "./core/cache";
 import type { xLogFile, XLogStorageDriverOptions } from "./types";
 
 // 创建一个写入流，将日志输出到 dist/log.txt 文件
-const logFilePath = "./dist/log.txt";
-if (!fs.existsSync("./dist")) {
-  fs.mkdirSync("./dist"); // 确保 dist 目录存在
+const logFilePath = "./logs/log.txt";
+if (!fs.existsSync("./logs")) {
+  fs.mkdirSync("./logs"); // 确保 dist 目录存在
 }
 const logStream = fs.createWriteStream(logFilePath, { flags: "a" });
 
