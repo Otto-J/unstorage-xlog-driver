@@ -6,3 +6,4 @@ types
 .eslintcache
 *.log*
 *.env*
+logs/

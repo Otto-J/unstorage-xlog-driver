@@ -13,14 +13,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: corepack enable
-      - uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v1
         with:
-          node-version: 18
-          cache: "pnpm"
-      - run: pnpm install
-      - run: pnpm lint
-      - run: pnpm test:types
-      - run: pnpm build
-      - run: pnpm vitest --coverage
+          bun-version: latest
+      - name: Cache Bun
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.bun/install/cache
+            ~/.bun/install/global
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+      - run: bun install
+      - run: bun lint
+      - run: bun test:types
+      - run: bun build
+      - run: bun test --coverage
       - uses: codecov/codecov-action@v3
