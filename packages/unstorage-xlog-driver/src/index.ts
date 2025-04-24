@@ -125,7 +125,7 @@ export const xLogStorageDriver = defineDriver(
             obj.id = key;
             obj.meta = options.data.meta ? value.meta : undefined;
             obj.content = options.data.content ? value.content : undefined;
-            res.push(JSON.stringify(obj));
+            res.push(encodeURIComponent(JSON.stringify(obj)));
           }
           return res;
         }

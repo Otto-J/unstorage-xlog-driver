@@ -12,13 +12,21 @@ const storage = createStorage({
 
 async function main() {
   const query: IGetKeysOptions = {
-    limit: 5,
-    cursor: "",
+    limit: 10,
+    /** {userId}_noteId */
+    cursor: `${OTTO_ID}_115`,
     meta: true,
-    content: true,
+    content: false,
   };
   const keys = await storage.getKeys("", query);
-  console.log(keys);
+  try {
+    const res = keys.map((key) => {
+      return JSON.parse(decodeURIComponent(key));
+    });
+    console.log(res.map((item) => item.meta.title));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 main();
