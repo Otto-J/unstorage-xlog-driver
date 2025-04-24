@@ -1,19 +1,23 @@
 import { createIndexer } from "crossbell";
 import matter from "gray-matter";
 import type {
+  IGetKeysOptionsParsed,
   xLogFile,
   xLogFileMeta,
   XLogStorageDriverOptions,
 } from "../types";
 
-const LIMIT = 100;
+const LIMIT = 500;
 const TAGS = "post";
 
 export const IPFS_GATEWAY = "https://ipfs.4everland.xyz/ipfs/";
 
 const indexer = createIndexer();
 
-export async function fetchFiles(options: XLogStorageDriverOptions) {
+export async function fetchFiles(
+  options: XLogStorageDriverOptions,
+  fetchOptions: IGetKeysOptionsParsed,
+) {
   const files = new Map<string, xLogFile>();
 
   try {
@@ -21,8 +25,9 @@ export async function fetchFiles(options: XLogStorageDriverOptions) {
     const rawRes = await indexer.note.getMany({
       characterId,
       includeNestedNotes: false,
-      limit: LIMIT,
+      limit: fetchOptions.limit ?? LIMIT,
       tags: TAGS,
+      cursor: fetchOptions.cursor,
     });
 
     const lists = rawRes.list ?? [];
@@ -52,6 +57,7 @@ export async function fetchFiles(options: XLogStorageDriverOptions) {
         tags: i.metadata?.content?.tags ?? [],
         slug,
         summary,
+        id_xlog: i.noteId,
         ...contentWithData.data,
       };
 

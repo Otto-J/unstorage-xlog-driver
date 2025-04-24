@@ -1,6 +1,6 @@
 import type { StorageMeta } from "unstorage";
 import { z } from "zod";
-import { XLogStorageDriverOptionsSchema } from "./schema";
+import { getKeysOptionsSchema, XLogStorageDriverOptionsSchema } from "./schema";
 
 export type XLogStorageDriverOptions = z.input<
   typeof XLogStorageDriverOptionsSchema
@@ -21,3 +21,14 @@ export interface xLogFile {
   content: string;
   meta: xLogFileMeta;
 }
+
+export type ICache =
+  | {
+      expired: number;
+      limit: number;
+      cursor: string;
+    }
+  | undefined;
+
+export type IGetKeysOptions = z.input<typeof getKeysOptionsSchema>;
+export type IGetKeysOptionsParsed = z.infer<typeof getKeysOptionsSchema>;

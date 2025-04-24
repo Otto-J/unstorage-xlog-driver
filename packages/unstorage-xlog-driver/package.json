@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "build:dts": "tsc --emitDeclarationOnly --project tsconfig.type.json",
-    "build:source": "bun build ./src/index.ts --outfile=dist/index.mjs  --target node --external unstorage --minify",
+    "build:source": "bun build ./src/index.ts --outfile=dist/index.mjs --format esm  --target node --external unstorage --minify --dts",
     "build": "bun run build:source && bun run build:dts",
     "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src test",
     "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",

@@ -1,10 +1,10 @@
 const cached = new Map();
 
-function get(key: string) {
-  return cached.get(key);
+function get<T>(key: string) {
+  return cached.get(key) as T;
 }
 
-function set(key: string, value: any) {
+function set<T>(key: string, value: T) {
   cached.set(key, value);
 }
 

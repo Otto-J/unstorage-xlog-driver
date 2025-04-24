@@ -2,9 +2,15 @@ import fs from "node:fs";
 import { defineDriver, type StorageMeta } from "unstorage";
 import pino from "pino";
 import { fetchFiles } from "./core/fetch-info";
-import { XLogStorageDriverOptionsSchema } from "./schema";
+import { getKeysOptionsSchema, XLogStorageDriverOptionsSchema } from "./schema";
 import caches from "./core/cache";
-import type { xLogFile, XLogStorageDriverOptions } from "./types";
+import type {
+  ICache,
+  IGetKeysOptions,
+  IGetKeysOptionsParsed,
+  xLogFile,
+  XLogStorageDriverOptions,
+} from "./types";
 
 // 创建一个写入流，将日志输出到 dist/log.txt 文件
 const logFilePath = "./logs/log.txt";
@@ -43,29 +49,48 @@ export const xLogStorageDriver = defineDriver(
     const options = _options.data as Required<XLogStorageDriverOptions>;
     logger.debug({ options }, "user format options");
 
-    const syncFiles = async () => {
+    const syncFiles = async (_fetchOptions: IGetKeysOptions = {}) => {
       logger.debug("syncFiles start");
-      const expired = caches.get(options.characterId.toString());
-      logger.debug({ expired }, "caches get result");
-      const now = Date.now();
+      const now = +Date.now();
 
-      // 如果缓存不存在或已过期，则重新请求
-      if (!expired || Number(expired) < now) {
-        logger.debug("expired, will fetchFiles");
-        files = await fetchFiles(options);
+      const fetchOptions: IGetKeysOptionsParsed =
+        getKeysOptionsSchema.parse(_fetchOptions);
+
+      const expired = caches.get<ICache>(options.characterId.toString());
+      // 判断 limit/cursor 是否发生变化，如果发生变化，销毁 cache 然后存储，如果无变化判断 expire
+      const hasChanged =
+        expired?.limit !== fetchOptions.limit &&
+        expired?.cursor !== fetchOptions.cursor;
+
+      if (hasChanged) {
+        logger.debug("limit or cursor changed, will fetchFiles");
+        files = await fetchFiles(options, fetchOptions);
         logger.debug({ files }, "syncFiles files");
-        logger.debug(
-          {
-            now,
-            ttl: options.ttl,
-            expired: now + options.ttl * 1000,
-          },
-          "syncFiles set cache",
-        );
-        caches.set(options.characterId.toString(), now + options.ttl * 1000);
-        logger.debug("syncFiles done");
+        caches.set<ICache>(options.characterId.toString(), {
+          expired: now + options.ttl * 1000,
+          limit: fetchOptions.limit,
+          cursor: fetchOptions.cursor ?? "",
+        });
       } else {
-        logger.debug("no expired, will not fetchFiles");
+        logger.debug("query no changed, will not fetchFiles");
+        logger.debug({ expired }, "caches get result");
+
+        // 如果缓存不存在或已过期，则重新请求
+        if (!expired?.expired || Number(expired.expired) < now) {
+          logger.debug("expired, will fetchFiles");
+          files = await fetchFiles(options, fetchOptions);
+          logger.debug({ files }, "syncFiles files");
+
+          // 这里存储过期时间、limit/cursor
+          caches.set(options.characterId.toString(), {
+            expired: now + options.ttl * 1000,
+            limit: fetchOptions.limit,
+            cursor: fetchOptions.cursor,
+          });
+          logger.debug("syncFiles done");
+        } else {
+          logger.debug("no expired, will not fetchFiles");
+        }
       }
     };
 
@@ -74,22 +99,40 @@ export const xLogStorageDriver = defineDriver(
       options,
       async hasItem(key: string) {
         logger.debug("hasItem", key);
-        await syncFiles();
+        await syncFiles({});
         return files.has(key);
       },
       async getItem(key: string) {
         logger.debug("getItem", key);
-        await syncFiles();
+        await syncFiles({});
 
         return files.get(key)?.content;
       },
-      // async setItem(key, value, _opts) {},
-      // async removeItem(key, _opts) {},
-      async getKeys() {
+      async getKeys(_, _options: any) {
         logger.debug("start getKeys function");
-        await syncFiles();
+        const options = getKeysOptionsSchema.safeParse(_options);
+        if (!options.success) {
+          logger.error({ error: options.error }, "user options parse error");
+          throw new Error(options.error.message);
+        }
+        await syncFiles(options.data);
+
+        const res: string[] = [];
+
+        if (options.data.meta || options.data.content) {
+          const obj: any = {};
+          for (const [key, value] of files.entries()) {
+            obj.id = key;
+            obj.meta = options.data.meta ? value.meta : undefined;
+            obj.content = options.data.content ? value.content : undefined;
+            res.push(JSON.stringify(obj));
+          }
+          return res;
+        }
+
         return [...files.keys()];
       },
+      // 获取头文件
       async getMeta(key: string) {
         logger.debug("getMeta", key);
         await syncFiles();
