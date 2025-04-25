@@ -7,6 +7,7 @@ import type {
   XLogStorageDriverOptions,
 } from './types'
 import fs from 'node:fs'
+import process from 'node:process'
 import pino from 'pino'
 import { defineDriver } from 'unstorage'
 import caches from './core/cache'

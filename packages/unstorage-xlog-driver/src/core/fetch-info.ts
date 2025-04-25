@@ -78,7 +78,7 @@ export async function fetchFiles(
     return files
   }
   catch (error: any) {
-    console.log(error.message)
+    console.error(error.message)
     throw new Error(error.message)
   }
 }

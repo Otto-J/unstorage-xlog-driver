@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { IGetKeysOptions } from './src/types'
 import { createStorage } from 'unstorage'
 // import { z } from "zod";

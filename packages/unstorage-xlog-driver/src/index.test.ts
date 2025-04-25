@@ -30,7 +30,7 @@ describe('Must set characterID', () => {
 })
 
 // 返回的 getKeys
-describe.only('Storage features', () => {
+describe('Storage features', () => {
   const storage = createStorage({
     driver: xLogStorageDriver({
       characterId: OTTO_ID,
@@ -69,7 +69,7 @@ describe.only('Storage features', () => {
     const keys = await storage.getKeys()
 
     const meta = await storage.getMeta(keys[0])
-    console.log(meta.title)
+    // console.info(meta.title)
     // const meta = await storage.getMeta("72.md");
     expect(meta).toHaveProperty('title')
   })

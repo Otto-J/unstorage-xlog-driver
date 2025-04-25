@@ -1,4 +1,4 @@
-import antfu from "@antfu/eslint-config";
+import antfu from '@antfu/eslint-config'
 
-console.log(antfu());
-export default antfu();
+// console.log(await antfu())
+export default antfu()
