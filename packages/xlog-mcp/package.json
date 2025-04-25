@@ -1,14 +1,13 @@
 {
   "name": "xlog-mcp",
-  "module": "index.ts",
   "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
+  "module": "index.ts",
   "scripts": {
-    "dev": "DEBUG=* bunx @modelcontextprotocol/inspector bun index.ts"
+    "dev": "LOG_LEVEL=debug mcp-inspector bun index.ts",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "devDependencies": {
+    "@web.worker/unstorage-xlog-driver": "workspace:*"
   }
 }

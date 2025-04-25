@@ -25,12 +25,12 @@ const logger = pino(
   {
     name: 'xlog-driver',
     level: process.env.LOG_LEVEL || 'info',
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        colorize: true,
-      },
-    },
+    // transport: {
+    //   target: 'pino-pretty',
+    //   options: {
+    //     colorize: true,
+    //   },
+    // },
   },
   logStream,
 )
@@ -52,20 +52,22 @@ export const xLogStorageDriver = defineDriver(
     logger.debug({ options }, 'user format options')
 
     const syncFiles = async (_fetchOptions: IGetKeysOptions = {}) => {
-      logger.debug('syncFiles start')
+      logger.debug(_fetchOptions, 'raw fetchOptions')
       const now = +Date.now()
 
       const fetchOptions: IGetKeysOptionsParsed
         = getKeysOptionsSchema.parse(_fetchOptions)
+      logger.debug(fetchOptions, 'fetchOptions parsed')
 
       const expired = caches.get<ICache>(options.characterId.toString())
+      logger.debug(expired, 'expired info')
       // 判断 limit/cursor 是否发生变化，如果发生变化，销毁 cache 然后存储，如果无变化判断 expire
-      const hasChanged
-        = expired?.limit !== fetchOptions.limit
-          && expired?.cursor !== fetchOptions.cursor
+      const isSame
+        = expired?.limit === fetchOptions.limit
+          && expired?.cursor === fetchOptions.cursor
 
-      if (hasChanged) {
-        logger.debug('limit or cursor changed, will fetchFiles')
+      if (!isSame) {
+        logger.debug(fetchOptions, 'limit or cursor changed, will fetchFiles')
         files = await fetchFiles(options, fetchOptions)
         logger.debug({ files }, 'syncFiles files')
         caches.set<ICache>(options.characterId.toString(), {
@@ -113,12 +115,13 @@ export const xLogStorageDriver = defineDriver(
         return files.get(key)?.content
       },
       async getKeys(_, _options: any) {
-        logger.debug('start getKeys function')
+        logger.debug({ _options }, 'getKeys _options')
         const options = getKeysOptionsSchema.safeParse(_options)
         if (!options.success) {
           logger.error({ error: options.error }, 'user options parse error')
           throw new Error(options.error.message)
         }
+        logger.debug({ options: options.data }, 'getKeys parsed')
         await syncFiles(options.data)
 
         const res: string[] = []
