@@ -1,35 +1,36 @@
-import { createStorage } from "unstorage";
-import { z } from "zod";
-import { xLogStorageDriver } from "./src/index";
-import { IGetKeysOptions } from "./src/types";
+import type { IGetKeysOptions } from './src/types'
+import { createStorage } from 'unstorage'
+// import { z } from "zod";
+import { xLogStorageDriver } from './src/index'
 // import { xLogStorageDriver } from "./dist/index.js";
 
-const OTTO_ID = 53_709;
+const OTTO_ID = 53_709
 
 const storage = createStorage({
   driver: xLogStorageDriver({ characterId: OTTO_ID }),
-});
+})
 
 async function main() {
   const query: IGetKeysOptions = {
-    limit: 10,
+    limit: 4,
     /** {userId}_noteId */
-    cursor: `${OTTO_ID}_115`,
+    cursor: `${OTTO_ID}_109`,
     meta: true,
     content: false,
-  };
-  const keys = await storage.getKeys("", query);
+  }
+  const keys = await storage.getKeys('', query)
   try {
     const res = keys.map((key) => {
-      return JSON.parse(decodeURIComponent(key));
-    });
-    console.log(res.map((item) => item.meta.title));
-  } catch (error) {
-    console.log(error);
+      return JSON.parse(decodeURIComponent(key))
+    })
+    console.log(res.map(item => item.meta.id_xlog))
+  }
+  catch (error) {
+    console.log(error)
   }
 }
 
-main();
+main()
 
 // const obj1 = z.object({
 //   name: z.string().optional().default("john"),
