@@ -1,11 +1,11 @@
 {
   "name": "@web.worker/unstorage-xlog-driver",
+  "type": "module",
   "version": "0.2.0",
   "description": "unjs/unstorage driver for xlog.app",
-  "repository": "Otto-J/unstorage-xlog-deriver",
   "license": "MIT",
+  "repository": "Otto-J/unstorage-xlog-deriver",
   "sideEffects": false,
-  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -15,25 +15,25 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
+    "README.md",
     "dist",
-    "package.json",
-    "README.md"
+    "package.json"
   ],
   "scripts": {
     "build:dts": "tsc --emitDeclarationOnly --project tsconfig.type.json",
     "build:source": "bun build ./src/index.ts --outfile=dist/index.mjs --format esm  --target node --external unstorage --minify --dts",
     "build": "bun run build:source && bun run build:dts",
-    "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src test",
-    "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "prepack": "bun run build",
     "release": "bun test && changelogen --release && npm publish && git push --follow-tags",
     "test": "tsc --noEmit --skipLibCheck &&bun test"
   },
-  "devDependencies": {
-    "changelogen": "^0.5.5"
-  },
   "dependencies": {
     "crossbell": "^1.9.0",
     "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "changelogen": "^0.5.5"
   }
 }
