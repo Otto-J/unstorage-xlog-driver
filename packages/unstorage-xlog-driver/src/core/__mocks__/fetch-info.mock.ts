@@ -1,4 +1,4 @@
-import type { xLogFile, XLogStorageDriverOptions, IGetKeysOptionsParsed } from '../../types'
+import type { IGetKeysOptionsParsed, xLogFile, XLogStorageDriverOptions } from '../../types'
 
 // Mock data for testing
 export const mockFiles = new Map<string, xLogFile>([
@@ -13,8 +13,8 @@ export const mockFiles = new Map<string, xLogFile>([
       update_time: '2023-01-02T00:00:00Z',
       publish_time: '2023-01-03T00:00:00Z',
       summary: 'Test summary 1',
-      id_xlog: 1
-    }
+      id_xlog: 1,
+    },
   }],
   ['2.md', {
     content: '---\ntitle: Test Post 2\nslug: test-post-2\ntags: ["test", "example"]\n---\nThis is test content 2',
@@ -27,15 +27,15 @@ export const mockFiles = new Map<string, xLogFile>([
       update_time: '2023-02-02T00:00:00Z',
       publish_time: '2023-02-03T00:00:00Z',
       summary: 'Test summary 2',
-      id_xlog: 2
-    }
-  }]
+      id_xlog: 2,
+    },
+  }],
 ])
 
 // Mock implementation of fetchFiles
 export async function mockFetchFiles(
-  options: XLogStorageDriverOptions,
-  fetchOptions: IGetKeysOptionsParsed
+  _options: XLogStorageDriverOptions,
+  _fetchOptions: IGetKeysOptionsParsed,
 ): Promise<Map<string, xLogFile>> {
   return mockFiles
 }

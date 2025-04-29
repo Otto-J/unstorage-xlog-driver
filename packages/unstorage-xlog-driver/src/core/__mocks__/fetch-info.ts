@@ -15,8 +15,8 @@ const mockFiles = new Map<string, xLogFile>([
       update_time: '2023-01-02T00:00:00Z',
       publish_time: '2023-01-03T00:00:00Z',
       summary: 'Test summary 1',
-      id_xlog: 1
-    }
+      id_xlog: 1,
+    },
   }],
   ['2.md', {
     content: '---\ntitle: Test Post 2\nslug: test-post-2\ntags: ["test", "example"]\n---\nThis is test content 2',
@@ -29,9 +29,9 @@ const mockFiles = new Map<string, xLogFile>([
       update_time: '2023-02-02T00:00:00Z',
       publish_time: '2023-02-03T00:00:00Z',
       summary: 'Test summary 2',
-      id_xlog: 2
-    }
-  }]
+      id_xlog: 2,
+    },
+  }],
 ])
 
 // Mock implementation of fetchFiles
