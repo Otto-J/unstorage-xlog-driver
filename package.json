@@ -11,7 +11,8 @@
     "build:xlog": "cd packages/unstorage-xlog-driver && bun run build",
     "build": "cd packages/unstorage-xlog-driver && bun run build",
     "lint": "cd packages/unstorage-xlog-driver && bun run lint",
-    "test:types": "cd packages/unstorage-xlog-driver && tsc --noEmit --skipLibCheck"
+    "test:types": "cd packages/unstorage-xlog-driver && tsc --noEmit --skipLibCheck",
+    "test": "cd packages/unstorage-xlog-driver && bun run test"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.12.0",
