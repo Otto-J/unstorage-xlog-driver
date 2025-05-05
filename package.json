@@ -9,7 +9,9 @@
   "scripts": {
     "preinstall": "npx only-allow bun",
     "build:xlog": "cd packages/unstorage-xlog-driver && bun run build",
-    "build": "bun build ./packages/memos/index.ts --outdir=dist --outfile=index.js -e unstorage --minify"
+    "build": "bun build ./packages/memos/index.ts --outdir=dist --outfile=index.js -e unstorage --minify",
+    "lint": "cd packages/unstorage-xlog-driver && bun run lint",
+    "test:types": "cd packages/unstorage-xlog-driver && tsc --noEmit --skipLibCheck"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.12.0",
