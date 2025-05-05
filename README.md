@@ -1,6 +1,6 @@
 # web.worker-unstorage-drivers
 
-这是一个 [unstorage](https://github.com/unjs/unstorage) 拓展库集合。
+这是一个 [unstorage](https://github.com/unjs/unstorage) 拓展库集合。这个库提供了多种驱动程序，使得与不同服务的数据交互变得简单。
 
 ## unstorage 是什么？
 
