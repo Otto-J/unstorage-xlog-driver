@@ -1,0 +1,9 @@
+{
+  "name": "@web.worker/unstorage-feishu-bitable-driver",
+  "type": "module",
+  "module": "index.ts",
+  "peerDependencies": {
+  },
+  "devDependencies": {
+  }
+}
