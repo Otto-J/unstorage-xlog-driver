@@ -1,7 +1,12 @@
-import { createStorage, defineDriver } from "unstorage";
+import { createStorage, defineDriver, type Driver } from "unstorage";
 import { Octokit } from "octokit";
 
-export const myStorageDriver = defineDriver(
+export const myStorageDriver: (opt: {
+  owner: string;
+  repo: string;
+  auth: string;
+  timeoutSeconds?: number;
+}) => Driver = defineDriver(
   (opt: {
     owner: string;
     repo: string;

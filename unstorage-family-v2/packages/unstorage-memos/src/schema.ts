@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-
-export const baseConfigSchema = z.object({
+export const baseConfigSchema: z.ZodType = z.object({
   baseUrl: z
     .string({
       required_error: "baseUrl is required",
@@ -18,14 +17,14 @@ export const baseConfigSchema = z.object({
   }),
 });
 
-export const IGetListOptionsSchema = z.object({
+export const IGetListOptionsSchema: z.ZodType = z.object({
   pageSize: z.number().optional().default(10),
   pageToken: z.string().optional().default(""),
   filter: z.string().optional(),
   moreInfo: z.boolean().optional().default(false),
 });
 
-export const IListResSchema = z.object({
+export const IListResSchema: z.ZodType = z.object({
   id: z.string(),
   uid: z.string(),
   createTime: z.string(),
@@ -36,7 +35,8 @@ export const IListResSchema = z.object({
   tags: z.array(z.string()),
   desc: z.string(),
 });
-export const CleanList = z.object({
+
+export const CleanList: z.ZodType = z.object({
   nextPageToken: z.string(),
   memos: z.array(
     z.object({

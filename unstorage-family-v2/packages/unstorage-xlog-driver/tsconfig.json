@@ -1,7 +1,20 @@
 {
-  "extends": "../../tsconfig.json",
-
-  "include": ["src/**/*.ts"], /* Specify files to include in compilation */
-  "exclude": ["node_modules", "dist"] /* Specify files to exclude */
-
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "isolatedDeclarations": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }

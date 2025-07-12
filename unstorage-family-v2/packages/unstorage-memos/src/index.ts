@@ -1,4 +1,4 @@
-import { defineDriver } from "unstorage";
+import { defineDriver, type Driver } from "unstorage";
 import {
   baseConfigSchema,
   getList,
@@ -6,7 +6,7 @@ import {
   type ICommonOptions,
 } from "./memos";
 
-export const MemosStorageDriver = defineDriver((options: ICommonOptions) => {
+export const MemosStorageDriver: (options: ICommonOptions) => Driver = defineDriver((options: ICommonOptions) => {
   const opt = baseConfigSchema.safeParse(options);
   if (!opt.success) {
     throw new Error(opt.error.errors[0].message);

@@ -2,7 +2,7 @@ import { URLSearchParams } from 'node:url'
 import z from 'zod'
 import { getTenantAccessToken } from './src/core/index'
 
-const querySchema = z.object({
+const querySchema: z.ZodType = z.object({
   token: z.string(),
   page_token: z.string().default(''),
   page_size: z.string().default('20'),
@@ -45,16 +45,16 @@ async function getRecords(options: z.infer<typeof querySchema>) {
   return data.data
 }
 
-const API_BODY = z.object({
+const API_BODY: z.ZodType = z.object({
   app_token: z.string(),
   table_id: z.string(),
   view_id: z.string(),
 })
 
 export default async function (ctx: any): Promise<{
-  status: boolean
-  message: string
-  data: any
+  status: boolean;
+  message: string;
+  data: any;
 }> {
   const query = ctx.query
   const validatedBody = API_BODY.safeParse(ctx.body)
