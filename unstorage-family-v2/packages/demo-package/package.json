@@ -1,0 +1,33 @@
+{
+  "name": "@web.worker/demo-package",
+  "version": "0.0.1",
+  "description": "Demo package for testing tsdown",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch"
+  },
+  "keywords": ["unstorage", "driver"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "tsdown": "^0.12.9",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "unstorage": "^1.15.0"
+  }
+}
