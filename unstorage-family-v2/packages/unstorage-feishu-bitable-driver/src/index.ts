@@ -1,6 +1,6 @@
 import { URLSearchParams } from 'node:url'
 import z from 'zod'
-import { getTenantAccessToken } from './src/core/index'
+import { getTenantAccessToken } from './core/index'
 
 const querySchema: z.ZodType = z.object({
   token: z.string(),

@@ -9,7 +9,7 @@ import type {
 import fs from 'node:fs'
 import process from 'node:process'
 import pino from 'pino'
-import { defineDriver } from 'unstorage'
+import { defineDriver, type Driver } from 'unstorage'
 import caches from './core/cache'
 import { fetchFiles } from './core/fetch-info'
 import { getKeysOptionsSchema, XLogStorageDriverOptionsSchema } from './schema'
@@ -39,7 +39,7 @@ export const DRIVER_NAME = 'xLog-driver'
 
 let files: Map<string, xLogFile>
 
-export const xLogStorageDriver = defineDriver(
+export const xLogStorageDriver: (opt: XLogStorageDriverOptions) => Driver = defineDriver(
   (opt: XLogStorageDriverOptions) => {
     logger.debug({ opt }, 'user raw options')
     const _options = XLogStorageDriverOptionsSchema.safeParse(opt)

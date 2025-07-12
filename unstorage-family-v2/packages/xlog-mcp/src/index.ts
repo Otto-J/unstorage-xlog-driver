@@ -7,7 +7,7 @@ import { xLogStorageDriver } from '@web.worker/unstorage-xlog-driver'
 import debug from 'debug'
 import { createStorage } from 'unstorage'
 import { z } from 'zod'
-import { fetchXlogList } from './src/core'
+import { fetchXlogList } from './core'
 
 const log = debug('mcp:xlog')
 
