@@ -1,18 +1,29 @@
 {
-  "name": "unstorage-family-v2",
+  "name": "@web.worker/unstorage-family",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A collection of UnStorage drivers for various platforms",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "pnpm -r build",
+    "dev": "pnpm -r dev",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "clean": "pnpm -r clean",
+    "typecheck": "pnpm -r typecheck"
   },
-  "keywords": [],
+  "keywords": ["unstorage", "driver", "monorepo"],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "packageManager": "pnpm@10.12.4",
   "devDependencies": {
     "@types/node": "^24.0.13",
     "tsdown": "^0.12.9",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "unstorage": "^1.15.0",
+    "ofetch": "^1.4.1",
+    "zod": "^3.24.3"
   }
 }

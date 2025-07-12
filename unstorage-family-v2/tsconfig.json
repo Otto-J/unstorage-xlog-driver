@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "isolatedDeclarations": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true
+  },
+  "include": [],
+  "references": [
+    { "path": "./packages/demo-package" },
+    { "path": "./packages/unstorage-xlog-driver" },
+    { "path": "./packages/unstorage-feishu-bitable-driver" },
+    { "path": "./packages/unstorage-memos" },
+    { "path": "./packages/unstorage-gitee-issues-driver" },
+    { "path": "./packages/unstorage-github-issues-driver" },
+    { "path": "./packages/xlog-mcp" }
+  ]
+}

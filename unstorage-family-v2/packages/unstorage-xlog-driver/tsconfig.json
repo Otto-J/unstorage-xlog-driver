@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.json",
+
+  "include": ["src/**/*.ts"], /* Specify files to include in compilation */
+  "exclude": ["node_modules", "dist"] /* Specify files to exclude */
+
+}

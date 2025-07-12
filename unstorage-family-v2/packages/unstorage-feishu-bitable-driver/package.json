@@ -1,0 +1,37 @@
+{
+  "name": "@web.worker/unstorage-feishu-bitable-driver",
+  "version": "0.0.1",
+  "description": "UnStorage driver for Feishu Bitable",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["unstorage", "driver", "feishu", "bitable"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ofetch": "^1.4.1",
+    "unstorage": "^1.15.0",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "tsdown": "^0.12.9",
+    "typescript": "^5.8.3"
+  }
+}

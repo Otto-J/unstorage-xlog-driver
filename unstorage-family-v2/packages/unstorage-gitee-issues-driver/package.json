@@ -1,0 +1,33 @@
+{
+  "name": "@web.worker/unstorage-gitee-issues-drivers",
+  "module": "dist/index.js",
+  "type": "module",
+  "version": "0.0.3",
+  "access": "public",
+  "files": [
+    "dist",
+    "packages.json",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^22.15.30",
+    "gray-matter": "^4.0.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@mdit-vue/plugin-frontmatter": "^2.1.0",
+    "@mdit-vue/types": "^2.1.0",
+    "dayjs": "^1.11.10",
+    "markdown-it": "^14.1.0",
+    "unstorage": "^1.10.2"
+  }
+}
