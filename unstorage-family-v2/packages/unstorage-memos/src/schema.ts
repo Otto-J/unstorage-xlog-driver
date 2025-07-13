@@ -20,7 +20,7 @@ export const baseConfigSchema: z.ZodType = z.object({
 export const IGetListOptionsSchema: z.ZodType = z.object({
   pageSize: z.number().optional().default(10),
   pageToken: z.string().optional().default(""),
-  filter: z.string().optional(),
+  filter: z.string().array().optional(),
   moreInfo: z.boolean().optional().default(false),
 });
 
@@ -41,15 +41,13 @@ export const CleanList: z.ZodType = z.object({
   memos: z.array(
     z.object({
       name: z.string(),
-      uid: z.string(),
+      state: z.string(),
       createTime: z.string(),
       updateTime: z.string(),
       displayTime: z.string(),
       content: z.string(),
-      property: z.object({
-        tags: z.array(z.string()),
-      }),
+      tags: z.array(z.string()),
       snippet: z.string(),
-    })
+    }),
   ),
 });

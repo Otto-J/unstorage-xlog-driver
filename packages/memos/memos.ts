@@ -11,7 +11,7 @@ export async function getList(
 ): Promise<string[]> {
   if (IGetListOptionsSchema.safeParse(opt).success) {
     const url = new URL(opt.baseUrl + "/api/v1/memos");
-    url.searchParams.append("filter", `visibilities==['${opt.filter.join()}']`);
+    url.searchParams.append("filter", `visibility in ['${opt.filter.join()}']`);
     url.searchParams.append("pageSize", opt.pageSize.toString());
     url.searchParams.append("pageToken", opt.pageToken);
 

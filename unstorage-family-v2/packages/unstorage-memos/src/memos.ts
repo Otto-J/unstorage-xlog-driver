@@ -7,11 +7,14 @@ export type ICommonOptions = z.infer<typeof baseConfigSchema>;
 export type IGetListOptions = z.infer<typeof IGetListOptionsSchema>;
 
 export async function getList(
-  opt: IGetListOptions & ICommonOptions
+  opt: IGetListOptions & ICommonOptions,
 ): Promise<string[]> {
   if (IGetListOptionsSchema.safeParse(opt).success) {
     const url = new URL(opt.baseUrl + "/api/v1/memos");
-    url.searchParams.append("filter", opt.filter?.toString() ?? "");
+    url.searchParams.append(
+      "filter",
+      `visibility in ['${opt.filter?.join(",")}']`,
+    );
     url.searchParams.append("pageSize", opt.pageSize.toString());
     url.searchParams.append("pageToken", opt.pageToken);
 
@@ -37,11 +40,11 @@ export async function getList(
 
     if (!opt.moreInfo) {
       cleanList.data.memos.forEach((i) =>
-        result.push(i.name.split("/").pop()!)
+        result.push(i.name.split("/").pop()!),
       );
     } else {
       cleanList.data.memos.forEach((i) =>
-        result.push(encodeURIComponent(JSON.stringify(i)))
+        result.push(encodeURIComponent(JSON.stringify(i))),
       );
     }
     return result;

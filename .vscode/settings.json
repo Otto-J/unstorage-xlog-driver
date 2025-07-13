@@ -6,5 +6,9 @@
     "ipfs",
     "modelcontextprotocol",
     "xlog"
-  ]
+  ],
+  "bun.runtime": "/Users/otto/.bun/bin/bun",
+  "bun.debugTerminal.enabled": true,
+    "bun.debugTerminal.stopOnEntry": true
+
 }

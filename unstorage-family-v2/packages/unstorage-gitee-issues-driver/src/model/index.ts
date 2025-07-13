@@ -21,7 +21,7 @@ const md = markdownit({
   },
 });
 
-export const fetchIssues = async (options: GiteeIssuesDriverOptions) => {
+export const fetchIssues = async (options: GiteeIssuesDriverOptions): Promise<string[] | never[]> => {
   const [_, owner, repo] = options.repo
     .split("https://gitee.com")[1]
     .split("/");

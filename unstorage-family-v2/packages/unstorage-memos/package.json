@@ -1,6 +1,6 @@
 {
   "name": "@web.worker/unstorage-memos",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "UnStorage driver for Memos API",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,16 +22,21 @@
     "dev": "tsdown --watch",
     "clean": "rm -rf dist"
   },
-  "keywords": ["unstorage", "driver", "memos"],
+  "keywords": [
+    "unstorage",
+    "driver",
+    "memos"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "ofetch": "^1.4.1",
-    "unstorage": "^1.15.0",
-    "zod": "^3.24.3"
+    "@types/node": "catalog:",
+    "ofetch": "catalog:",
+    "unstorage": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "tsdown": "^0.12.9",
-    "typescript": "^5.8.3"
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
   }
 }

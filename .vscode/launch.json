@@ -4,34 +4,16 @@
   // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-
     {
       "type": "bun",
       "internalConsoleOptions": "neverOpen",
       "request": "launch",
-      "name": "Debug File",
-      "program": "${file}",
-      "cwd": "${workspaceFolder}",
-      "stopOnEntry": false,
-      "watchMode": false
-    },
-    {
-      "type": "bun",
-      "internalConsoleOptions": "neverOpen",
-      "request": "launch",
-      "name": "Run File",
-      "program": "${file}",
-      "cwd": "${workspaceFolder}",
-      "noDebug": true,
-      "watchMode": false
-    },
-    {
-      "type": "bun",
-      "internalConsoleOptions": "neverOpen",
-      "request": "attach",
-      "name": "Attach Bun",
-      "url": "ws://localhost:6499/",
-      "stopOnEntry": false
+      "name": "Debug memos playground",
+      "program": "${workspaceFolder}/unstorage-family-v2/packages/unstorage-memos/playground/index.ts",
+      "cwd": "${workspaceFolder}/unstorage-family-v2/packages/unstorage-memos",
+      "stopOnEntry": true,
+      "watchMode": false,
+      "args": []
     }
   ]
 }
